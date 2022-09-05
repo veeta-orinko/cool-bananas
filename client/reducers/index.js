@@ -5,5 +5,5 @@ import user from './user'
 
 export default combineReducers({
   landing: landing,
-  user: user
+  user: user,
 })

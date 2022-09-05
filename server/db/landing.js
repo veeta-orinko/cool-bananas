@@ -12,5 +12,5 @@ function getCaptionedImages(db = connection) {
 }
 
 module.exports = {
-  getCaptionedImages
+  getCaptionedImages,
 }

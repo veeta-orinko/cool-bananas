@@ -8,7 +8,7 @@ const landingContentMockData = {
   captionId: 2,
   captionText: 'mockCaptionText',
   imageId: 2,
-  imageUrl: 'mockImageUrl'
+  imageUrl: 'mockImageUrl',
 }
 
 jest.mock('../../actions/landing')
@@ -32,7 +32,7 @@ describe('<Landing />', () => {
       <Provider store={fakeStore}>
         <Landing />
       </Provider>
-      )
+    )
     const captionText = screen.getByText(landingContentMockData.captionText)
     expect(captionText).toBeTruthy()
     const image = screen.getByRole('img')
@@ -46,7 +46,9 @@ describe('<Landing />', () => {
       <Provider store={fakeStore}>
         <Landing />
       </Provider>
-      )
-    expect(fakeStore.dispatch).toHaveBeenCalledWith(fetchLandingContentMockReturn)
+    )
+    expect(fakeStore.dispatch).toHaveBeenCalledWith(
+      fetchLandingContentMockReturn
+    )
   })
 })

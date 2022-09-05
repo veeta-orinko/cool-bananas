@@ -1,6 +1,6 @@
 import { SET_LANDING_CONTENT } from '../actions/landing'
 
-const initialState = { }
+const initialState = {}
 
 const landing = (state = initialState, action) => {
   const { type, payload } = action

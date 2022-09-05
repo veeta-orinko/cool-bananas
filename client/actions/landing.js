@@ -11,12 +11,13 @@ export function setLandingContent(LandingContent) {
 
 export function fetchLandingContent() {
   return (dispatch) => {
-    return getLandingContent().then((landingContent) => {
-      dispatch(setLandingContent(landingContent))
-      return null
-    })
-    .catch((error) => {
-      console.error(error.message)
-    })
+    return getLandingContent()
+      .then((landingContent) => {
+        dispatch(setLandingContent(landingContent))
+        return null
+      })
+      .catch((error) => {
+        console.error(error.message)
+      })
   }
 }

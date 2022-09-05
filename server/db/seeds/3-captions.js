@@ -8,6 +8,7 @@ exports.seed = async (knex) => {
     { id: 5, image_id: 2, auth0_id: '2', caption_text: 'Stop right there or I\'ll point at you!'},
     { id: 6, image_id: 2, auth0_id: '3', caption_text: 'Kachow'},
     { id: 7, image_id: 3, auth0_id: '1', caption_text: 'Thank you very much'},
-    { id: 8, image_id: 3, auth0_id: '2', caption_text: 'Let\'s motor!'}
+    { id: 8, image_id: 3, auth0_id: '2', caption_text: 'Let\'s motor!'},
+    { id: 9, image_id: 4, auth0_id: '2', caption_text: 'Pyjamas for scale'}
   ])
 }

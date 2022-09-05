@@ -5,7 +5,7 @@ const landingContentMockData = {
   captionId: 2,
   captionText: 'mockCaptionText',
   imageId: 2,
-  imageUrl: 'mockImageUrl'
+  imageUrl: 'mockImageUrl',
 }
 
 describe('landing reducer', () => {
@@ -14,7 +14,7 @@ describe('landing reducer', () => {
       type: SET_LANDING_CONTENT,
       payload: landingContentMockData,
     }
-    const initialState = { }
+    const initialState = {}
     const expectedState = landingContentMockData
     const outputState = landing(initialState, action)
 
@@ -22,8 +22,8 @@ describe('landing reducer', () => {
     expect(outputState).not.toBe(initialState)
   })
   it('returns the default initial state for an undefined state and no action type.', () => {
-    const expectedState = { }
-    const outputState = landing(undefined, { })
+    const expectedState = {}
+    const outputState = landing(undefined, {})
 
     expect(outputState).toEqual(expectedState)
   })

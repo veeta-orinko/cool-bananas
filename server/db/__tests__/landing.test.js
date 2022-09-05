@@ -19,10 +19,9 @@ afterAll(() => {
 describe('getCaptionedImages', () => {
   it('gets the images with their captions from the database.', () => {
     expect.assertions(2)
-    return getCaptionedImages(testDb)
-      .then((captionedImages) => {
-        expect(captionedImages[0].captionText).toBe('Banananana')
-        expect(captionedImages).toHaveLength(8)
-      })
+    return getCaptionedImages(testDb).then((captionedImages) => {
+      expect(captionedImages[0].captionText).toBe('Banananana')
+      expect(captionedImages).toHaveLength(9)
+    })
   })
 })

@@ -5,7 +5,7 @@ const landingContentMockData = {
   captionId: 2,
   captionText: 'mockCaptionText',
   imageId: 2,
-  imageUrl: 'mockImageUrl'
+  imageUrl: 'mockImageUrl',
 }
 
 describe('GET /api/v1/landing', () => {

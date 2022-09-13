@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:tag', (req, res) => {
+  // what the user has searched for
   res.send(`tagged route hit! with: ${req.params.tag}`)
 })
 

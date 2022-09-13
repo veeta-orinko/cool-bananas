@@ -6,5 +6,6 @@ const router = express.Router()
 router.get('/', (req, res) => {
   res.send('create route hit!')
 })
+// post route
 
 module.exports = router

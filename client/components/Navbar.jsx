@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useAuth0 } from '@auth0/auth0-react'
 
 import { clearUser, setUser } from '../actions/user'
+import { getUser } from '../apis/users'
 
 export default function Navbar() {
   const dispatch = useDispatch()

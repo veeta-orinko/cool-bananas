@@ -19,7 +19,6 @@ server.use('/api/v1/collection', collectionRoutes)
 server.use('/api/v1/create', createRoutes)
 server.use('/api/v1/users', usersRoutes)
 server.use('/api/v1/tagged', taggedRoutes)
-server.use('/api/v1/landing/all', landingRoutes)
 
 server.get('*', (req, res) => {
   res.sendFile(path.resolve('server/public/index.html'))

@@ -1,9 +1,11 @@
 import nock from 'nock'
 import { getImages } from '../tagged'
-const serverURL = 'http://localhost:3000/api/v1/tagged'
+const serverURL = '/api/v1/tagged/'
 
 describe('getImages api call', () => {
-  it('Returns an array of objects', () => {
+  it('Returns an array of objects', async () => {
+    expect.assertions(2)
+
     const arrImageData = [
       {
         captionId: 1,
@@ -28,11 +30,9 @@ describe('getImages api call', () => {
       },
     ]
 
-    const scope = nock(serverURL)
-      .get('/')
-      .reply(200, JSON.stringify(arrImageData), {
-        'Content-Type': 'application/json',
-      })
+    const scope = nock('http://localhost')
+      .get(serverURL)
+      .reply(200, arrImageData)
 
     return getImages().then((result) => {
       expect(result).toHaveLength(3)

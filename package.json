@@ -18,7 +18,7 @@
     "knex": "knex --knexfile ./server/db/knexfile.js",
     "webpack": "webpack --config ./client/webpack.config.js",
     "lint": "eslint --ext .js,.jsx .",
-    "test": "jest --watchAll",
+    "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --noStackTrace --watchAll"
   },

@@ -1,7 +1,7 @@
 const request = require('supertest')
 const server = require('../../server')
 
-const { getAllByTag } = require('../../db/tagged')
+const { getAllImagesByTag } = require('../../db/tagged')
 jest.mock('../../db/tagged')
 
 jest.spyOn(console, 'error')
@@ -27,7 +27,7 @@ describe('GET /api/v1/tagged/:tag', () => {
     },
   ]
   it('returns status 200 and an array of objects when db function resolves', () => {
-    getAllByTag.mockReturnValue(Promise.resolve(fakeObjectArray))
+    getAllImagesByTag.mockReturnValue(Promise.resolve(fakeObjectArray))
     return request(server)
       .get('/api/v1/tagged/coolio')
       .then((res) => {
@@ -38,7 +38,7 @@ describe('GET /api/v1/tagged/:tag', () => {
       })
   })
   it('returns status 500 and an error message when db function rejects', () => {
-    getAllByTag.mockImplementation(() =>
+    getAllImagesByTag.mockImplementation(() =>
       Promise.reject(new Error('oh dear, sad'))
     )
     return request(server)

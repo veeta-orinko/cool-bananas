@@ -3,10 +3,11 @@
 const connection = require('./connection')
 
 module.exports = {
-  getAllByTag,
+  getAllImagesByTag,
+  getAllImages,
 }
 
-function getAllByTag(tag, db = connection) {
+function getAllImagesByTag(tag, db = connection) {
   return db('images')
     .join('captions', 'images.id', 'captions.image_id')
     .select(
@@ -17,4 +18,16 @@ function getAllByTag(tag, db = connection) {
       'tags'
     )
     .whereLike('tags', `%${tag}%`)
+}
+
+function getAllImages(db = connection) {
+  return db('images')
+    .join('captions', 'images.id', 'captions.image_id')
+    .select(
+      'images.id as imageId',
+      'captions.id as captionId',
+      'image_url as imageUrl',
+      'caption_text as captionText',
+      'tags'
+    )
 }

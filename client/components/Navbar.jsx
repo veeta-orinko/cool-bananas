@@ -6,12 +6,9 @@ import { IfAuthenticated, IfNotAuthenticated } from './Authenicated'
 
 import { clearUser, setUser } from '../actions/user'
 import { getUser } from '../apis/users'
-import { useCacheUser } from '../auth0-utils'
 
 export default function Navbar() {
-  useCacheUser()
-  const { isAuthenticated, getAccessTokenSilently, logout, loginWithRedirect } =
-    useAuth0()
+  const { logout, loginWithRedirect } = useAuth0()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const user = useSelector((state) => state.user)
@@ -25,19 +22,6 @@ export default function Navbar() {
     e.preventDefault()
     loginWithRedirect()
   }
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      dispatch(clearUser())
-    } else {
-      getAccessTokenSilently()
-        .then((token) => getUser(token))
-        .then((userInDb) => {
-          userInDb ? dispatch(setUser(userInDb)) : navigate('/register')
-        })
-        .catch((err) => console.error(err))
-    }
-  }, [isAuthenticated])
 
   return (
     <nav className='navbar'>

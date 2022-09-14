@@ -26,7 +26,7 @@ const fakeStore = {
 }
 
 describe('<Landing />', () => {
-  it('displays iamge and caption from redux state.', () => {
+  it('displays image and caption from redux state.', () => {
     expect.assertions(2)
     render(
       <Provider store={fakeStore}>

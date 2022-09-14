@@ -12,7 +12,7 @@ export default function Navbar() {
     useAuth0()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const user = useSelector((state) => state.loggedInUser)
+  const user = useSelector((state) => state.user)
 
   const handleLogOff = (e) => {
     e.preventDefault()
@@ -45,7 +45,7 @@ export default function Navbar() {
       <Link to='/create'>Create</Link>
       <Link to='/register'>Register</Link>
       <IfAuthenticated>
-        <p>{' ' + user.name}</p>
+        <p>{'user email: ' + user.email}</p>
       </IfAuthenticated>
       <Link to='/' onClick={handleSignIn}>
         Login

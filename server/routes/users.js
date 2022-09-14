@@ -18,4 +18,29 @@ router.get('/', checkJwt, (req, res) => {
   }
 })
 
+router.post('/', checkJwt, (req, res) => {
+  const auth0_id = req.user?.sub
+  const { name, email } = req.body
+  const userDetails = {
+    auth0_id,
+    name,
+    email,
+  }
+
+  db.userExists(name)
+    .then((usernameTaken) => {
+      if (usernameTaken) throw new Error('Username Taken')
+    })
+    .then(() => db.createUser(userDetails))
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.error(err)
+      if (err.message === 'Username Taken') {
+        res.status(403).send('Username Taken')
+      } else {
+        res.status(500).send(err.message)
+      }
+    })
+})
+
 module.exports = router

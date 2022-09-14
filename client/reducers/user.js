@@ -1,6 +1,7 @@
 import { SET_USER, CLEAR_USER } from '../actions/user'
 
 const initialState = {
+  name: '',
   auth0Id: '',
   email: '',
   token: '',

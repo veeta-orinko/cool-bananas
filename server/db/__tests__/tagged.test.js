@@ -14,15 +14,9 @@ beforeEach(() => {
 
 describe('getAllImagesByTag', () => {
   it('returns an array of objects that matches tag parameter', () => {
-    return db.getAllImagesByTag('cool', testDb).then((array) => {
-      expect(array).toHaveLength(9)
+    return db.getAllImagesByTag('pyjama', testDb).then((array) => {
+      expect(array).toHaveLength(4)
       expect(array[0].imageUrl).toBe('/images/banana0.png')
-    })
-  })
-  it('confirms join of captions table to images table', () => {
-    return db.getAllImagesByTag('cool', testDb).then((array) => {
-      let imageCaptionsArray = array.filter((obj) => obj.imageId == 1)
-      expect(imageCaptionsArray).toHaveLength(4)
     })
   })
 })
@@ -32,6 +26,12 @@ describe('getAllImages', () => {
     return db.getAllImages(testDb).then((array) => {
       expect(array).toHaveLength(9)
       expect(array[0].captionText).toContain('Banananana')
+    })
+  })
+  it('confirms join of captions table to images table', () => {
+    return db.getAllImages(testDb).then((array) => {
+      let imageCaptionsArray = array.filter((obj) => obj.imageId == 1)
+      expect(imageCaptionsArray).toHaveLength(4)
     })
   })
 })

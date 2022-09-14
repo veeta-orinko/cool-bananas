@@ -6,20 +6,6 @@ module.exports = {
   getAllImagesByTag,
   getAllImages,
 }
-
-function getAllImagesByTag(tag, db = connection) {
-  return db('images')
-    .join('captions', 'images.id', 'captions.image_id')
-    .select(
-      'images.id as imageId',
-      'captions.id as captionId',
-      'image_url as imageUrl',
-      'caption_text as captionText',
-      'tags'
-    )
-    .whereLike('tags', `%${tag}%`)
-}
-
 function getAllImages(db = connection) {
   return db('images')
     .join('captions', 'images.id', 'captions.image_id')
@@ -30,4 +16,8 @@ function getAllImages(db = connection) {
       'caption_text as captionText',
       'tags'
     )
+}
+
+function getAllImagesByTag(tag, db = connection) {
+  return getAllImages(db).whereLike('tags', `%${tag}%`)
 }

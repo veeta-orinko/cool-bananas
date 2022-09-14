@@ -20,7 +20,7 @@ export function addUser(user, token) {
 
 function logError(err) {
   if (err.response.text === 'Username Taken') {
-    throw new Error('Username already taken - please choose another')
+    throw new Error('User already exists - please choose another')
   } else if (err.message === 'Forbidden') {
     throw new Error('Invalid permissions')
   } else {

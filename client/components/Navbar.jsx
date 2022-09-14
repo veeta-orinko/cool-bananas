@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useAuth0 } from '@auth0/auth0-react'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenicated'
 
-import { clearUser, setUser } from '../actions/user'
+import { clearUser, setUser, fetchUser } from '../actions/user'
 import { getUser } from '../apis/users'
 import { useCacheUser } from '../auth0-utils'
 
@@ -46,13 +46,13 @@ export default function Navbar() {
       <Link to='/tagged'>Search by tag</Link>
       <Link to='/create'>Create</Link>
       <IfNotAuthenticated>
-        <Link to='/' onClick={handleSignIn}>
+        <Link data-testid='login' to='/' onClick={handleSignIn}>
           Login/Register
         </Link>
       </IfNotAuthenticated>
       <IfAuthenticated>
-        <p>{user.name}</p>
-        <Link to='/' onClick={handleLogOff}>
+        <p data-testid='username'>{user?.name}</p>
+        <Link data-testid='logout' to='/' onClick={handleLogOff}>
           Log out
         </Link>
       </IfAuthenticated>

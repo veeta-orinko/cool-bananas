@@ -47,7 +47,7 @@ describe('GET /api/v1/dashboard/', () => {
   it('should return status 500 and an error message when database fails.', () => {
     expect.assertions(3)
     getAllCaptionedImages.mockImplementation(() =>
-      Promise.reject(new Error('Something went wrong'))
+      Promise.reject(new Error('Good proof this is working'))
     )
     console.error.mockImplementation(() => {})
     return request(server)
@@ -55,7 +55,7 @@ describe('GET /api/v1/dashboard/', () => {
       .then((res) => {
         expect(res.status).toBe(500)
         expect(res.text).toContain('Something went wrong')
-        expect(console.error).toHaveBeenCalledWith('Something went wrong')
+        expect(console.error).toHaveBeenCalledWith('Good proof this is working')
       })
   })
 })

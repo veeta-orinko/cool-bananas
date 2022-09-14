@@ -6,8 +6,10 @@ import { IfAuthenticated, IfNotAuthenticated } from './Authenicated'
 
 import { clearUser, setUser } from '../actions/user'
 import { getUser } from '../apis/users'
+import { useCacheUser } from '../auth0-utils'
 
 export default function Navbar() {
+  useCacheUser()
   const { isAuthenticated, getAccessTokenSilently, logout, loginWithRedirect } =
     useAuth0()
   const dispatch = useDispatch()
@@ -43,16 +45,17 @@ export default function Navbar() {
       <Link to='/collection'>My Collection</Link>
       <Link to='/tagged'>Search by tag</Link>
       <Link to='/create'>Create</Link>
-      <Link to='/register'>Register</Link>
+      <IfNotAuthenticated>
+        <Link to='/' onClick={handleSignIn}>
+          Login/Register
+        </Link>
+      </IfNotAuthenticated>
       <IfAuthenticated>
-        <p>{'user email: ' + user.email}</p>
+        <p>{user.name}</p>
+        <Link to='/' onClick={handleLogOff}>
+          Log out
+        </Link>
       </IfAuthenticated>
-      <Link to='/' onClick={handleSignIn}>
-        Login
-      </Link>
-      <Link to='/' onClick={handleLogOff}>
-        Log out
-      </Link>
     </nav>
   )
 }

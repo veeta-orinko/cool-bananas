@@ -10,6 +10,7 @@ import Tagged from './Tagged'
 import Create from './Create'
 import Upload from './Upload'
 import NotFound from './NotFound'
+import Register from './Register'
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path='/tagged' element={<Tagged />} />
         <Route path='/create' element={<Create />} />
         <Route path='/create/upload' element={<Upload />} />
+        <Route path='/register' element={<Register />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
     </div>

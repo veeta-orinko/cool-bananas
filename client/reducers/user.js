@@ -12,7 +12,8 @@ export default function user(state = initialState, action) {
 
   switch (type) {
     case SET_USER:
-      return payload
+      console.log('reducer worksish')
+      return { ...state, ...payload }
     case CLEAR_USER:
       return initialState
     default:

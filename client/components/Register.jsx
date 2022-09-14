@@ -28,11 +28,13 @@ function Register() {
   }
 
   const handleSubmit = (evt) => {
+    console.log('handleSubmit works')
     evt.preventDefault()
     const userInfo = {
       auth0Id: user.auth0Id,
       ...form,
     }
+    console.log('auth0 stuff ', user.auth0Id)
     addUser(userInfo, user.token)
       .then(() => dispatch(setUser(userInfo)))
       .catch((err) => setErrorMsg(err.message))
@@ -61,8 +63,8 @@ function Register() {
           value={form.email}
           onChange={handleChange}
         />
+        <button disabled={!(form.name && form.email)}>Save Profile</button>
       </form>
-      <button disabled={!(form.name && form.email)}>Save Profile</button>
     </>
   )
 }

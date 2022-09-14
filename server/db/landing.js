@@ -10,7 +10,6 @@ function getCaptionedImages(db = connection) {
       'caption_text as captionText'
     )
 }
-
 module.exports = {
   getCaptionedImages,
 }

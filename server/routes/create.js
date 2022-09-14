@@ -11,21 +11,20 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const url = req.body[0] // "{url: http://www.jfklea.com/jkfl;aewafdajkl;}"
-  const caption = req.body
-  // const caption = req.body.caption
-  // console.log(req.body)
-  //   {
-  //     "caption": { "captionText": "brand new caption", "auth0Id": 2},
-  //     "url": { "imageUrl": "http://www.jfklea.com/jkfl;aewafdajkl",
-  // "auto0Id": 2 }
-  // //  }
+  const { url } = req.body
+  const { caption } = req.body
+
+  const newUrl = {
+    image_url: url.imageUrl,
+    auth0_id: url.auth0Id,
+  }
+
   const newCaption = {
     caption_text: caption.captionText,
     auth0_id: caption.auth0Id,
   }
 
-  db.addImageUrl(url)
+  db.addImageUrl(newUrl)
     .then((ids) => {
       return db.addImageCaption({ ...newCaption, image_id: ids[0] })
     })

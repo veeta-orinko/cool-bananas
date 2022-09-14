@@ -23,7 +23,7 @@ const fakeObjectArray = [
     captionText: "When you're a happy banana",
     imageId: 1,
     imageUrl: '/images/banana0.png',
-    tags: 'banana, cool, pyjamas',
+    tags: 'banana, pyjamas',
   },
   {
     captionId: 3,

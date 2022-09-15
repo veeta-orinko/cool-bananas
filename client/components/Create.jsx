@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getExternalImages } from '../apis/create'
+import { getExternalImages, addImgCaptionUrl } from '../apis/create'
 
 export default function Create() {
-  // const variable = getExternalImages()
-  // console.log(variable)
-  const [images, setImages] = useState(' ')
+  const [images, setImages] = useState(null)
   const [form, setForm] = useState({ name: '' })
+  const [index, setIndex] = useState(0)
   const { name } = form
-
-  function onClick(e) {
+  let display = null
+  if (images) {
+    display = images[index].images.original.url
+  }
+  function onSubmit(e) {
     e.preventDefault()
-    console.log(form.name)
 
-    // const sendObject = {
-    //   imageUrl: 'placeholder from create',
-    //   captionText: form.name,
-    //   tags: place,
-    // }
-    // dispatch(deleteWombat(wombat))
+    const sendObject = {
+      imageUrl: display,
+      captionText: form.name,
+      tags: 'placeholder',
+    }
+    addImgCaptionUrl(sendObject)
+    console.log(sendObject)
   }
 
   // function handleClick(evt) {
@@ -46,28 +48,34 @@ export default function Create() {
       })
   }, [])
 
+  function nextImg() {
+    setIndex(index + 1)
+  }
+
   return (
     <>
       <h1>CREATE PAGE :D</h1>
-      {images != ' ' ? (
-        <img src={images[0].images.original.url} alt='lorem' />
-      ) : (
-        <p>loading</p>
+      {images && (
+        <>
+          {' '}
+          <img src={display} alt='lorem' />
+          <form>
+            <label htmlFor='createid'>{name}</label>
+            <br></br>
+            <input
+              type='text'
+              id='createid'
+              name='name'
+              value={name}
+              onChange={handleChange}
+            ></input>
+            <button onClick={onSubmit}>Add Caption</button>
+          </form>
+        </>
       )}
-
-      <form>
-        <label htmlFor='createid'>{name}</label>
-        <br></br>
-        <input
-          type='text'
-          id='createid'
-          name='name'
-          value={name}
-          onChange={handleChange}
-        ></input>
-        <button onClick={onClick}>Add Caption</button>
-      </form>
-
+      <button onClick={nextImg} value='Next'>
+        New Image
+      </button>
       <Link to='/create/upload'>Upload</Link>
     </>
   )

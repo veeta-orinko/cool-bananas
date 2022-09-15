@@ -13,36 +13,31 @@ export default function Dashboard() {
   }, [])
 
   function addIndex() {
-    if (images[selectedIndex] < images.length) {
-      setSelectedIndex[selectedIndex]++
-    } else if (images[selectedIndex] == images.length) {
-      setSelectedIndex[selectedIndex] = 0
+    if (selectedIndex < images.length - 1) {
+      setSelectedIndex(selectedIndex + 1)
+    } else if (selectedIndex == images.length - 1) {
+      setSelectedIndex(0)
     }
   }
 
   function decreaseIndex() {
-    if (images[selectedIndex] > 0) {
-      setSelectedIndex[selectedIndex]--
-    } else if (images[selectedIndex] == 0) {
-      setSelectedIndex[selectedIndex] = images.length
+    if (selectedIndex > 0) {
+      setSelectedIndex(selectedIndex - 1)
+    } else if (selectedIndex == 0) {
+      setSelectedIndex(images.length - 1)
     }
   }
 
   return (
     <>
       <div className={styles.displayContainer}>
+        <button onClick={decreaseIndex}>{'⫷'}</button>
         <Display
           imageUrl={images[selectedIndex].imageUrl}
-          captionText={images[selectedIndex].images}
+          captionText={images[selectedIndex].captionText}
         />
-        <button onClick={addIndex}>{'->'}</button>
-        <button onClick={decreaseIndex}>{'<-'}</button>
+        <button onClick={addIndex}>{'⫸'}</button>
       </div>
     </>
   )
 }
-
-//get all the images in a random order - DONE (line 9)
-// then add a state that keeps track of the current selected index. It starts out as [0].
-//clicking on right button goes up, clicking button left goes down.
-//add buttons to incr/decr selected index/prevent 0 (i.e. length of array)

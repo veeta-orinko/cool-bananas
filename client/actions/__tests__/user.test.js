@@ -1,13 +1,4 @@
 import { SET_USER, CLEAR_USER, setUser, clearUser } from '../user'
-import { getUser, addUser } from '../../apis/users'
-
-jest.mock('../../apis/users')
-
-const fakeDispatch = jest.fn()
-
-beforeEach(() => {
-  jest.clearAllMocks()
-})
 
 const fakeUser = {
   name: 'BigNerd',
@@ -16,25 +7,18 @@ const fakeUser = {
   token: 'someToken',
 }
 
-describe('getUser', () => {
+describe('setUser', () => {
   it('sets the current user upon login', () => {
-    getUser.mockReturnValue(Promise.resolve(fakeUser))
-    return setUser()(fakeDispatch).then(() => {
-      expect(fakeDispatch).toHaveBeenCalledWith({
-        type: SET_USER,
-        payload: fakeUser,
-      })
-    })
+    const result = setUser(fakeUser)
+    expect(result.type).toBe(SET_USER)
+    expect(result.payload.name).toBe('BigNerd')
   })
-  // it('should console.error() if api request fails.', () => {
-  //   expect.assertions(1)
-  //   jest.spyOn(console, 'error')
-  //   console.error.mockImplementation(() => {})
-  //   getUser.mockImplementation(() =>
-  //     Promise.reject(new Error('Something went wrong'))
-  //   )
-  //   return getUser()(fakeDispatch).then(() => {
-  //     expect(console.error).toHaveBeenCalledWith('Something went wrong')
-  //   })
-  // })
+})
+
+describe('clearUser', () => {
+  it('clears the user upon logout', () => {
+    const result = clearUser(fakeUser)
+    expect(result.type).toBe(CLEAR_USER)
+    expect(result.payload).toBeUndefined()
+  })
 })

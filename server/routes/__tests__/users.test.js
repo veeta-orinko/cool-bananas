@@ -45,6 +45,32 @@ describe('GET /api/v1/users/', () => {
   })
 })
 
+//Adds a new user to the database
+describe('POST /api/v1/users/', () => {
+  it('returns status 200 and an array of objects when db function resolves', () => {
+    userExists.mockReturnValue(Promise.resolve(fakeUser))
+
+    return request(server)
+      .post('/api/v1/users')
+      .then((res) => {
+        expect(res.status).toBe(200)
+        expect(res.body.name).toBe('JV')
+        expect(getUser).toHaveBeenCalledWith('999')
+        return null
+      })
+  })
+  it('returns status 500 and an error message when db function rejects', () => {
+    getUser.mockImplementation(() => Promise.reject(new Error('oh dear, sad')))
+    return request(server)
+      .post('/api/v1/users')
+      .then((res) => {
+        expect(res.status).toBe(500)
+        expect(res.text).toBe('oh dear, sad')
+        return null
+      })
+  })
+})
+
 // important comments, do not delete 😈 //
 // test = { 🤯, 😢 }
 // 🍌 = 😊

@@ -26,7 +26,7 @@ describe('GET /api/v1/collection', () => {
       .get('/api/v1/collection')
       .then((response) => {
         expect(response.body).toHaveLength(2)
-        expect(response.body[0].image_url).toContain('/images/apple.png')
+        expect(response.body[0].image_url).toBe('/images/apple.png')
       })
   })
 })

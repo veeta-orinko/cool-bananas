@@ -31,12 +31,12 @@ export default function Dashboard() {
   return (
     <>
       <div className={styles.displayContainer}>
+        <button onClick={decreaseIndex}>{'<-'}</button>
         <Display
           imageUrl={images[selectedIndex].imageUrl}
           captionText={images[selectedIndex].captionText}
         />
         <button onClick={addIndex}>{'->'}</button>
-        <button onClick={decreaseIndex}>{'<-'}</button>
       </div>
     </>
   )

@@ -3,9 +3,6 @@ const { getImagesByUserId } = require('../collection')
 const testConfig = require('../knexfile').test
 const testDb = knex(testConfig)
 
-// // const { getCaptionedImages } = require('../landing')
-// const db = require('./db/collection.js')
-
 beforeAll(() => {
   return testDb.migrate.latest()
 })

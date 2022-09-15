@@ -4,7 +4,7 @@ const { getCaptionedImages } = require('../db/landing')
 
 const router = express.Router()
 
-// GET /api/v1/landing/
+// GET a randomised image /api/v1/landing/
 router.get('/', (req, res) => {
   getCaptionedImages()
     .then((captionedImages) => {

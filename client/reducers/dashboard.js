@@ -15,7 +15,7 @@ const dashboard = (state = initialState, action) => {
 
   switch (type) {
     case SET_DASHBOARD_CONTENT:
-      console.log('is this working?!?!:', payload)
+      // console.log('is this working?!?!:', payload)
       return payload
     default:
       return state

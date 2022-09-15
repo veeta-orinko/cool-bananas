@@ -25,8 +25,16 @@ describe('dashboard reducer', () => {
     expect(outputState).not.toBe(initialState)
   })
   it('returns the default initial state for an undefined state and no action type.', () => {
-    const expectedState = [{}]
-    const outputState = dashboard(undefined, [{}])
+    const expectedState = [
+      {
+        imageId: 1,
+        auth0ImageId: '1',
+        captionId: 1,
+        imageUrl: '/images/banana0.png',
+        captionText: 'Banananana',
+      },
+    ]
+    const outputState = dashboard(undefined, {})
 
     expect(outputState).toEqual(expectedState)
   })

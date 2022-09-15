@@ -3,7 +3,7 @@ import { getDashboardContent } from '../apis/dashboard'
 export const SET_DASHBOARD_CONTENT = 'SET_DASHBOARD_CONTENT'
 
 export function setDashboardContent(DashboardContent) {
-  console.log('i am DashboardContent', DashboardContent)
+  // console.log('i am DashboardContent', DashboardContent)
   return {
     type: SET_DASHBOARD_CONTENT,
     payload: DashboardContent,

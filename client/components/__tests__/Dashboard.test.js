@@ -65,18 +65,22 @@ describe('<Dashboard />', () => {
     )
   })
 
-  it('changes image index when forward and back button is clicked', () => {
-    expect.assertions(1)
+  it('changes image index when button is clicked', () => {
+    expect.assertions(2)
     render(
       <Provider store={fakeStore}>
         <Dashboard />
       </Provider>
     )
     const imageUrl = screen.getByRole('img').src
+    const backButton = screen.getByRole('button', { name: '⫷' })
+    fireEvent.click(backButton, { shiftKey: true })
+    const previousImageUrl = screen.getByRole('img').src
+    expect(previousImageUrl).not.toBe(imageUrl)
 
-    const button = screen.getByRole('button', { name: '⫷' })
-    fireEvent.click(button, { shiftKey: true })
-    const newImageUrl = screen.getByRole('img').src
-    expect(newImageUrl).not.toBe(imageUrl)
+    const forwardButton = screen.getByRole('button', { name: '⫸' })
+    fireEvent.click(forwardButton, { shiftKey: true })
+    const nextImageUrl = screen.getByRole('img').src
+    expect(nextImageUrl).toBe(imageUrl)
   })
 })

@@ -12,19 +12,19 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const imageData = {
     image_url: req.body.imageUrl,
-    auth0_id: req.body.auth0Id,
     tags: 'placeholder',
   }
+  // auth0_id: req.body.auth0Id,
 
   const captionData = {
     caption_text: req.body.captionText,
-    auth0_id: req.body.auth0Id,
   }
   let tempImageId = null
   db.addImageUrl(imageData)
-    .then((ids) => {
-      tempImageId = ids[0]
-      return db.addImageCaption({ ...captionData, image_id: ids[0] })
+    .then((id) => {
+      tempImageId = id
+      console.log(tempImageId)
+      return db.addImageCaption({ ...captionData, image_id: tempImageId })
     })
     .then((ids) => {
       res.json({ ...captionData, id: ids[0], image_id: tempImageId })

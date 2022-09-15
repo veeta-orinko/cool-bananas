@@ -20,9 +20,15 @@ afterAll(() => {
 describe('addImageCaption', () => {
   test('adds an image caption', () => {
     const caption = { image_id: 1, auth0_id: 2, caption_text: 'caption text' }
-    return addImageCaption(caption, testDb).then((captions) => {
-      expect(captions[0]).toBe(10)
-    })
+    return addImageCaption(caption, testDb)
+      .then(() => {
+        return testDb('captions').select()
+      })
+      .then((captions) => {
+        expect(captions).toHaveLength(10)
+        expect(captions[9].image_id).toBe(1)
+        expect(captions[9].caption_text).toBe('caption text')
+      })
   })
 })
 
@@ -34,7 +40,7 @@ describe('addImageUrl', () => {
       tags: 'comic strip',
     }
     return addImageUrl(url, testDb).then((image) => {
-      expect(image[0]).toBe(5)
+      expect(image).toBe(5)
     })
   })
 })

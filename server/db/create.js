@@ -5,7 +5,9 @@ function addImageCaption(captionInfo, db = connection) {
 }
 
 function addImageUrl(urlInfo, db = connection) {
-  return db('images').insert(urlInfo)
+  return db('images')
+    .insert(urlInfo)
+    .then((ids) => ids[0])
 }
 
 module.exports = { addImageCaption, addImageUrl }

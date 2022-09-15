@@ -18,7 +18,7 @@ const postCaptionedImagestMockData = {
 
 describe('POST /api/v1/create/', () => {
   test('should return a caption and an id', () => {
-    expect.assertions(4)
+    expect.assertions(6)
     addImageUrl.mockReturnValue(Promise.resolve([5]))
     addImageCaption.mockReturnValue(Promise.resolve([10]))
     return request(server)
@@ -27,8 +27,16 @@ describe('POST /api/v1/create/', () => {
       .then((res) => {
         expect(res.status).toBe(200)
         expect(res.body.id).toBe(10)
-        expect(res.body.image_id).toBe(5)
+        expect(res.body.image_id).toStrictEqual([5])
         expect(res.body.caption_text).toContain('mockCaptionText1')
+        expect(addImageCaption).toHaveBeenCalledWith({
+          image_id: [5],
+          caption_text: 'mockCaptionText1',
+        })
+        expect(addImageUrl).toHaveBeenCalledWith({
+          image_url: 'mockImageUrl1',
+          tags: 'placeholder',
+        })
       })
   })
 

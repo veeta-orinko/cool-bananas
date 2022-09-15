@@ -1,6 +1,6 @@
 import request from 'superagent'
 
-const apiUrl = 'https://picsum.photos/v2/list'
+const apiUrl = '/api/v1/create/gif'
 
 //GET /api/v1/create
 

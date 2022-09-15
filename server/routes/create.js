@@ -1,12 +1,39 @@
 const express = require('express')
-
+const cors = require('cors')
+const request = require('superagent')
 const db = require('../db/create')
+require('dotenv').config()
 
 const router = express.Router()
+const apiKey = process.env.SECRET_API_KEY
+
+router.use(
+  cors({
+    origin: 'https://api.giphy.com/v1/gifs/trending',
+  })
+)
 
 // GET /api/v1/create/
 router.get('/', (req, res) => {
   res.send('create route hit!')
+})
+
+router.get('/gif', (req, res) => {
+  console.log(apiKey)
+  return request
+    .get(`https://api.giphy.com/v1/gifs/trending`)
+    .query({ api_key: apiKey })
+    .query({ limit: 25 })
+    .query({ rating: 'g' })
+
+    .then((apiRes) => {
+      console.log(apiRes.body.data)
+      res.json(apiRes.body.data)
+    })
+    .catch((err) => {
+      console.log(err.message)
+      res.sendStatus(500)
+    })
 })
 
 router.post('/', (req, res) => {

@@ -1,4 +1,4 @@
-import { SET_USER } from '../../actions/user'
+import { SET_USER, CLEAR_USER } from '../../actions/user'
 import user from '../user'
 
 const fakeUser = {
@@ -8,18 +8,18 @@ const fakeUser = {
   token: 'tokenwoooooo',
 }
 
+const initialState = {
+  name: '',
+  auth0Id: '',
+  email: '',
+  token: '',
+}
+
 describe('user reducer', () => {
   it('returns the updated state for type SET_USER', () => {
     const action = {
       type: SET_USER,
       payload: fakeUser,
-    }
-
-    const initialState = {
-      name: '',
-      auth0Id: '',
-      email: '',
-      token: '',
     }
 
     const expectedState = fakeUser
@@ -29,14 +29,15 @@ describe('user reducer', () => {
     expect(outputState).not.toBe(initialState)
   })
   it('returns the default initial state for an undefined state and no action type', () => {
-    const expectedState = {
-      name: '',
-      auth0Id: '',
-      email: '',
-      token: '',
-    }
     const outputState = user(undefined, {})
 
-    expect(outputState).toEqual(expectedState)
+    expect(outputState).toEqual(initialState)
+  })
+  it('returns the initial state when type clear user', () => {
+    const action = {
+      type: CLEAR_USER,
+    }
+    const outputState = user(fakeUser, action)
+    expect(outputState).toEqual(initialState)
   })
 })

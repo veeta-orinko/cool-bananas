@@ -24,7 +24,7 @@ export function useCacheUser() {
         })
         .then((userInDb) => {
           if (userInDb) {
-            dispatch(setUser(userInDb))
+            dispatch(setUser({ ...userInDb, token: tempToken }))
           } else {
             dispatch(
               setUser({
@@ -35,7 +35,6 @@ export function useCacheUser() {
             )
             navigate('/register')
           }
-          userInDb ? dispatch(setUser(userInDb)) : navigate('/register')
         })
         .catch((err) => console.error(err))
     }

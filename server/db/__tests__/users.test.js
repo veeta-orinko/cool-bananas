@@ -50,7 +50,7 @@ describe('createUser', () => {
 describe('userExists', () => {
   it('returns true if the name already exists in the database', () => {
     return db.userExists('Cool', testDb).then((userExistance) => {
-      expect(userExistance).toBe(true)
+      expect(userExistance).toBeTruthy()
     })
   })
   it('returns false if the name already exists in the database', () => {

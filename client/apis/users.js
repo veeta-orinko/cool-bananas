@@ -25,10 +25,7 @@ function logError(err) {
     throw new Error('Invalid permissions')
   } else {
     // eslint-disable-next-line no-console
-    console.error(
-      'Error consuming the API (in client/apis/users.js):',
-      err.message
-    )
+    console.error('Error consuming the API (in client/apis/users.js):')
     throw err
   }
 }

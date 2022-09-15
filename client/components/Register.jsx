@@ -31,6 +31,7 @@ function Register() {
     evt.preventDefault()
     const userInfo = {
       auth0Id: user.auth0Id,
+      token: user.token,
       ...form,
     }
     addUser(userInfo, user.token)

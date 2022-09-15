@@ -6,14 +6,12 @@ const router = express.Router()
 
 router.get('/', checkJwt, (req, res) => {
   const auth0_id = req.user?.sub
-  console.log(auth0_id)
   if (!auth0_id) {
-    res.send(null)
+    res.sendStatus(400)
   } else {
     db.getUser(auth0_id)
       .then((user) => {
-        console.log(user)
-        res.json(user ? user : null)
+        res.json(user)
       })
       .catch((err) => res.status(500).send(err.message))
   }
@@ -30,12 +28,14 @@ router.post('/', checkJwt, (req, res) => {
 
   db.userExists(name)
     .then((usernameTaken) => {
-      if (usernameTaken) throw new Error('Username Taken')
+      if (usernameTaken) {
+        throw new Error('Username Taken')
+      } else {
+        return db.createUser(userDetails)
+      }
     })
-    .then(() => db.createUser(userDetails))
     .then(() => res.sendStatus(201))
     .catch((err) => {
-      console.error(err)
       if (err.message === 'Username Taken') {
         res.status(403).send('Username Taken')
       } else {

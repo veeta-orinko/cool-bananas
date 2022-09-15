@@ -56,7 +56,6 @@ describe('getImagesByTag api call', () => {
     scope.get(`${serverURL}/${tag}`).reply(200, imagesByTag)
 
     return getImagesByTag(tag).then((result) => {
-      console.log(imagesByTag)
       expect(result).toHaveLength(2)
       expect(scope.isDone()).toBe(true)
     })

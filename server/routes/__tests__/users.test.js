@@ -18,8 +18,6 @@ afterEach(() => {
   console.error.mockReset()
 })
 
-// const req = { user: { sub: '999' } }
-
 const fakeUser = { auth0_id: '999', name: 'JV', email: 'JV@iscool.com' }
 
 describe('GET /api/v1/users/', () => {
@@ -35,22 +33,20 @@ describe('GET /api/v1/users/', () => {
         return null
       })
   })
-  // it('returns status 500 and an error message when db function rejects', () => {
-  //   getAllImagesByTag.mockImplementation(() =>
-  //     Promise.reject(new Error('oh dear, sad'))
-  //   )
-  //   return request(server)
-  //     .get('/api/v1/tagged/coolio')
-  //     .then((res) => {
-  //       expect(res.status).toBe(500)
-  //       expect(res.text).toBe('oh dear, sad')
-  //       return null
-  //     })
-  // })
+  it('returns status 500 and an error message when db function rejects', () => {
+    getUser.mockImplementation(() => Promise.reject(new Error('oh dear, sad')))
+    return request(server)
+      .get('/api/v1/users')
+      .then((res) => {
+        expect(res.status).toBe(500)
+        expect(res.text).toBe('oh dear, sad')
+        return null
+      })
+  })
 })
 
 // important comments, do not delete 😈 //
 // test = { 🤯, 😢 }
 // 🍌 = 😊
 // 🎃 = 😠
-// any questions or comments?
+// any questions or comments JV?

@@ -18,7 +18,7 @@ const fakeStore = {
 }
 
 jest.mock('@auth0/auth0-react')
-const fakeLogoff = jest.fn()
+const fakeLogin = jest.fn()
 
 beforeEach(() => {
   useAuth0.mockReturnValue({
@@ -26,8 +26,7 @@ beforeEach(() => {
     user: {
       ...fakeUser,
     },
-    logoutWithRedirect: jest.fn(),
-    logout: fakeLogoff,
+    loginWithRedirect: fakeLogin,
     getAccessTokenSilently: () => {
       return Promise.resolve('token')
     },
@@ -58,14 +57,18 @@ describe('<Navbar />', () => {
   })
   it('Allows a user to log in', () => {
     render(
-      <BrowserRouter>
-        <Routes>
-          <Route path='*' element={<Navbar />} />
-        </Routes>
-      </BrowserRouter>
+      <Provider store={fakeStore}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='*' element={<Navbar />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     )
-    const link = screen.getByText('Log out')
+    const link = screen.getByText('Login/Register')
     fireEvent.click(link)
-    expect(fakeLogoff).toHaveBeenCalled()
+    expect(fakeLogin).toHaveBeenCalled()
   })
 })
+
+// ⌨️🐒 monkey do test, monkey happy, get banana 🍌

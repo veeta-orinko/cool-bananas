@@ -11,69 +11,29 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { url } = req.body
-  const { caption } = req.body
-
-  const newUrl = {
-    image_url: url.imageUrl,
-    auth0_id: url.auth0Id,
+  const imageData = {
+    image_url: req.body.imageUrl,
+    auth0_id: req.body.auth0Id,
+    tags: 'placeholder',
   }
 
-  const newCaption = {
-    caption_text: caption.captionText,
-    auth0_id: caption.auth0Id,
+  const captionData = {
+    caption_text: req.body.captionText,
+    auth0_id: req.body.auth0Id,
   }
-
-  db.addImageUrl(newUrl)
+  let tempImageId = null
+  db.addImageUrl(imageData)
     .then((ids) => {
-      return db.addImageCaption({ ...newCaption, image_id: ids[0] })
+      tempImageId = ids[0]
+      return db.addImageCaption({ ...captionData, image_id: ids[0] })
     })
     .then((ids) => {
-      res.json({ ...newCaption, id: ids[0] })
+      res.json({ ...captionData, id: ids[0], image_id: tempImageId })
     })
     .catch((err) => {
-      console.log(err)
-      res.status(500).json({ message: 'Something bad happened' })
+      console.error(err.message)
+      res.status(500).json({ message: 'Something went wrong' })
     })
 })
 
-// router.post('/', checkJwt, (req, res) => {
-//   const { fruit } = req.body
-//   const auth0Id = req.user?.sub
-//   const newFruit = {
-//     added_by_user: auth0Id,
-//     name: fruit.name,
-//     average_grams_each: fruit.averageGramsEach,
-//   }
-
-//   db.addFruit(newFruit)
-//     .then(() => db.getFruits())
-//     .then((fruits) => res.json({ fruits }))
-//     .catch((err) => {
-//       console.error(err)
-//       res.status(500).send(err.message)
-//     })
-// })
-
-// router.post('/', (req, res) => {
-//   const url = req.body
-//   console.log('url: ', url)
-//   db.addImageUrl(url)
-//     .then((ids) => {
-//       res.json({ ...url, id: ids[0] })
-//     })
-//     .catch((err) => {
-//       console.log(err)
-//       res.status(500).json({ message: 'Something bad happened' })
-//     })
-// })
-// post
-
-// post route
-
-// {
-//   "auth0_id": 2,
-//   "image_url": "https://i.imgur.com/yX4444wNrUV.jpeg",
-//   "tags": "second comic strip"
-// }
 module.exports = router

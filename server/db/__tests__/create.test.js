@@ -21,7 +21,6 @@ describe('addImageCaption', () => {
   test('adds an image caption', () => {
     const caption = { image_id: 1, auth0_id: 2, caption_text: 'caption text' }
     return addImageCaption(caption, testDb).then((captions) => {
-      console.log('caption console.log: ', caption)
       expect(captions[0]).toBe(10)
     })
   })
@@ -35,7 +34,6 @@ describe('addImageUrl', () => {
       tags: 'comic strip',
     }
     return addImageUrl(url, testDb).then((image) => {
-      console.log('caption console.log: ', image)
       expect(image[0]).toBe(5)
     })
   })

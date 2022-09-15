@@ -13,18 +13,18 @@ export default function Dashboard() {
   }, [])
 
   function addIndex() {
-    if (images[selectedIndex] < images.length) {
-      setSelectedIndex[selectedIndex]++
-    } else if (images[selectedIndex] == images.length) {
-      setSelectedIndex[selectedIndex] = 0
+    if (selectedIndex < images.length - 1) {
+      setSelectedIndex(selectedIndex + 1)
+    } else if (selectedIndex == images.length - 1) {
+      setSelectedIndex(0)
     }
   }
 
   function decreaseIndex() {
-    if (images[selectedIndex] > 0) {
-      setSelectedIndex[selectedIndex]--
-    } else if (images[selectedIndex] == 0) {
-      setSelectedIndex[selectedIndex] = images.length
+    if (selectedIndex > 0) {
+      setSelectedIndex(selectedIndex - 1)
+    } else if (selectedIndex == 0) {
+      setSelectedIndex(images.length - 1)
     }
   }
 
@@ -33,7 +33,7 @@ export default function Dashboard() {
       <div className={styles.displayContainer}>
         <Display
           imageUrl={images[selectedIndex].imageUrl}
-          captionText={images[selectedIndex].images}
+          captionText={images[selectedIndex].captionText}
         />
         <button onClick={addIndex}>{'->'}</button>
         <button onClick={decreaseIndex}>{'<-'}</button>

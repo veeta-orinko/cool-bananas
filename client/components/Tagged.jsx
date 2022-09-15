@@ -11,7 +11,7 @@ export default function Tagged() {
   const images = useSelector(selectImages)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [tag, setTag] = useState('')
+  const [tag, setTag] = useState({ tag: '' })
 
   useEffect(() => dispatch(fetchImages()), [])
 
@@ -19,13 +19,14 @@ export default function Tagged() {
     e.preventDefault()
     console.log(tag)
     console.log(e.target.value)
-    dispatch(fetchImagesByTag(tag))
-    navigate(`/tagged/${tag}`)
+    dispatch(fetchImagesByTag(tag.tag))
+    navigate(`/tagged/${tag.tag}`)
     setTag('')
   }
 
   function handleChange(e) {
-    setTag(...tag, e.target.value)
+    const newTag = { ...tag, tag: e.target.value }
+    setTag(newTag)
   }
 
   return (
@@ -37,7 +38,7 @@ export default function Tagged() {
           name='tag'
           id='tag'
           type='text'
-          // value={tag}
+          value={tag.tag}
           onChange={handleChange}
         />
         <input type='submit' />

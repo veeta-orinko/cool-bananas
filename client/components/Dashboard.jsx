@@ -31,18 +31,13 @@ export default function Dashboard() {
   return (
     <>
       <div className={styles.displayContainer}>
-        <button onClick={decreaseIndex}>{'<-'}</button>
+        <button onClick={decreaseIndex}>{'⫷'}</button>
         <Display
           imageUrl={images[selectedIndex].imageUrl}
           captionText={images[selectedIndex].captionText}
         />
-        <button onClick={addIndex}>{'->'}</button>
+        <button onClick={addIndex}>{'⫸'}</button>
       </div>
     </>
   )
 }
-
-//get all the images in a random order - DONE (line 9)
-// then add a state that keeps track of the current selected index. It starts out as [0].
-//clicking on right button goes up, clicking button left goes down.
-//add buttons to incr/decr selected index/prevent 0 (i.e. length of array)

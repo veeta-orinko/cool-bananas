@@ -16,3 +16,10 @@ export function getImages() {
     .then((res) => res.body)
     .catch(logError)
 }
+
+export function getImagesByTag(tag) {
+  return request
+    .get(`${rootUrl}/${tag}`)
+    .then((res) => res.body)
+    .catch(logError)
+}

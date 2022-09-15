@@ -5,23 +5,29 @@ import { getExternalImages } from '../apis/create'
 export default function Create() {
   // const variable = getExternalImages()
   // console.log(variable)
-  const [image, setImage] = useState()
+  const [images, setImages] = useState()
 
   useEffect(() => {
     getExternalImages()
-      .then((image) => {
-        console.log('image: ', image)
-        setImage(image)
+      .then((images) => {
+        setImages(images)
+        console.log('image: ', images[0].url)
       })
       .catch((err) => {
         console.error(err.message)
       })
-  })
+  }, [])
 
   return (
     <>
-      {/* <img src='https://placekeanu.com/200/150' alt='' /> */}
-      <img src={image} alt='lorem' />
+      {images[0].url != undefined ? (
+        <img src={images[0].url} alt='lorem' />
+      ) : (
+        <p>loading</p>
+      )}
+
+      <img src={images} alt='lorem' />
+
       <h1>CREATE PAGE :D</h1>
       <Link to='/create/upload'>Upload</Link>
     </>

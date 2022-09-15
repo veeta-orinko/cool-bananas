@@ -6,12 +6,13 @@ const router = express.Router()
 
 router.get('/', checkJwt, (req, res) => {
   const auth0_id = req.user?.sub
-
+  console.log(auth0_id)
   if (!auth0_id) {
     res.send(null)
   } else {
     db.getUser(auth0_id)
       .then((user) => {
+        console.log(user)
         res.json(user ? user : null)
       })
       .catch((err) => res.status(500).send(err.message))

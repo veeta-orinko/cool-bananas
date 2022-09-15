@@ -1,24 +1,43 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { setUser } from './actions/user'
+import { useDispatch } from 'react-redux'
+import { clearUser, setUser } from './actions/user'
+import { getUser } from './apis/users'
 
 // eslint-disable-next-line no-unused-vars
 export function useCacheUser() {
   const dispatch = useDispatch()
-  const tokenInRedux = useSelector((state) => Boolean(state.user?.token))
 
   const { isAuthenticated, getAccessTokenSilently, user } = useAuth0()
+  const navigate = useNavigate()
 
-  if (isAuthenticated && !tokenInRedux) {
-    getAccessTokenSilently()
-      .then((token) => {
-        const userToSave = {
-          auth0Id: user?.sub,
-          email: user?.email,
-          token,
-        }
-        dispatch(setUser(userToSave))
-      })
-      .catch((err) => console.error(err))
-  }
+  useEffect(() => {
+    let tempToken = null
+    if (!isAuthenticated) {
+      dispatch(clearUser())
+    } else {
+      getAccessTokenSilently()
+        .then((token) => {
+          tempToken = token
+          return getUser(token)
+        })
+        .then((userInDb) => {
+          if (userInDb) {
+            dispatch(setUser(userInDb))
+          } else {
+            dispatch(
+              setUser({
+                auth0Id: user?.sub,
+                email: user?.email,
+                token: tempToken,
+              })
+            )
+            navigate('/register')
+          }
+          userInDb ? dispatch(setUser(userInDb)) : navigate('/register')
+        })
+        .catch((err) => console.error(err))
+    }
+  }, [isAuthenticated])
 }

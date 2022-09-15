@@ -1,5 +1,5 @@
 import React from 'react'
-import { screen, render } from '@testing-library/react'
+import { screen, render, fireEvent } from '@testing-library/react'
 import Navbar from '../Navbar'
 import { useAuth0 } from '@auth0/auth0-react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -13,6 +13,7 @@ const fakeUser = {
 }
 
 jest.mock('@auth0/auth0-react')
+const fakeLogin = jest.fn()
 
 beforeEach(() => {
   useAuth0.mockReturnValue({
@@ -21,6 +22,7 @@ beforeEach(() => {
       ...fakeUser,
     },
     loginWithRedirect: jest.fn(),
+    login: fakeLogin,
     getAccessTokenSilently: () => {
       return Promise.resolve('token')
     },
@@ -49,5 +51,17 @@ describe('<Navbar />', () => {
     )
     const username = screen.getByTestId('username')
     expect(username).toBeVisible()
+  })
+  it('Allows a user to log out', () => {
+    render(
+      <BrowserRouter>
+        <Routes>
+          <Route path='*' element={<Navbar />} />
+        </Routes>
+      </BrowserRouter>
+    )
+    const link = screen.getByText('Log out')
+    fireEvent.click(link)
+    expect(fakeLogin).toHaveBeenCalled()
   })
 })

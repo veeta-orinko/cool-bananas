@@ -16,7 +16,6 @@ function getUsers(db = connection) {
 }
 
 function createUser(userDetails, db = connection) {
-  console.log(userDetails)
   return db('users').insert(userDetails)
 }
 

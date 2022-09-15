@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { useAuth0 } from '@auth0/auth0-react'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenicated'
 
-import { clearUser, setUser, fetchUser } from '../actions/user'
-import { getUser } from '../apis/users'
-import { useCacheUser } from '../auth0-utils'
-
 export default function Navbar() {
-  useCacheUser()
-  const { isAuthenticated, getAccessTokenSilently, logout, loginWithRedirect } =
-    useAuth0()
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { logout, loginWithRedirect } = useAuth0()
   const user = useSelector((state) => state.user)
 
   const handleLogOff = (e) => {
@@ -25,19 +17,6 @@ export default function Navbar() {
     e.preventDefault()
     loginWithRedirect()
   }
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      dispatch(clearUser())
-    } else {
-      getAccessTokenSilently()
-        .then((token) => getUser(token))
-        .then((userInDb) => {
-          userInDb ? dispatch(setUser(userInDb)) : navigate('/register')
-        })
-        .catch((err) => console.error(err))
-    }
-  }, [isAuthenticated])
 
   return (
     <nav className='navbar'>

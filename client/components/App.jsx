@@ -1,8 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-
 import Navbar from './Navbar'
-
 import Landing from './Landing'
 import Dashboard from './Dashboard'
 import Collection from './Collection'
@@ -11,8 +9,10 @@ import Create from './Create'
 import Upload from './Upload'
 import NotFound from './NotFound'
 import Register from './Register'
+import { useCacheUser } from '../auth0-utils'
 
 export default function App() {
+  useCacheUser()
   return (
     <div className='app'>
       <Navbar />

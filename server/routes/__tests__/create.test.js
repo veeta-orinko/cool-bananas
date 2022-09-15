@@ -32,13 +32,11 @@ describe('POST /api/v1/create/', () => {
       })
   })
 
-  test('should return a status 500 and an error message', () => {
+  test('addImageCaption should return a status 500 and an error message', () => {
     expect.assertions(3)
-    addImageUrl.mockImplementation(() =>
-      Promise.reject(new Error('Something went wrong'))
-    )
+
     addImageCaption.mockImplementation(() =>
-      Promise.reject(new Error('Something went wrong'))
+      Promise.reject(new Error('Test error message'))
     )
 
     console.error.mockImplementation(() => {})
@@ -47,7 +45,23 @@ describe('POST /api/v1/create/', () => {
       .then((res) => {
         expect(res.status).toBe(500)
         expect(res.text).toContain('Something went wrong')
-        expect(console.error).toHaveBeenCalledWith('Something went wrong')
+        expect(console.error).toHaveBeenCalledWith('Test error message')
+      })
+  })
+
+  test('addImageUrl should return a status 500 and an error message', () => {
+    expect.assertions(3)
+    addImageUrl.mockImplementation(() =>
+      Promise.reject(new Error('Test error message'))
+    )
+
+    console.error.mockImplementation(() => {})
+    return request(server)
+      .post('/api/v1/create/')
+      .then((res) => {
+        expect(res.status).toBe(500)
+        expect(res.text).toContain('Something went wrong')
+        expect(console.error).toHaveBeenCalledWith('Test error message')
       })
   })
 })

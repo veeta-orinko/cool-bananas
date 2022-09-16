@@ -23,7 +23,6 @@ export default function Create() {
       tags: form.tags,
       authId: authNum,
     }
-    console.log(sendObject)
     addImgCaptionUrl(sendObject)
   }
 

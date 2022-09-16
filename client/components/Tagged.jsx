@@ -19,7 +19,6 @@ export default function Tagged() {
       ? dispatch(fetchImages())
       : dispatch(fetchImagesByTag(tagParam))
   }, [])
-  // useEffect(() => images === undefined && navigate('/tagged'), [loaded])
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -35,7 +34,6 @@ export default function Tagged() {
 
   return (
     <>
-      <h1>TAGGED PAGE :D</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor='tag'>Search for an image by keyword:</label>
         <input

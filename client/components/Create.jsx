@@ -43,7 +43,7 @@ export default function Create() {
   }, [])
 
   function nextImg() {
-    setIndex(index + 1)
+    index === images.length - 1 ? setIndex(0) : setIndex(index + 1)
   }
 
   return (

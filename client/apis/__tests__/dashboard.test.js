@@ -30,10 +30,3 @@ describe('GET /api/v1/dashboard', () => {
     scope.done()
   })
 })
-
-describe('shuffle function /api/v1/dashboard', () => {
-  it('shuffle function works and returns a random image', async () => {
-    expect.assertions(1)
-    const scope = nock('http://localhost')
-  })
-})

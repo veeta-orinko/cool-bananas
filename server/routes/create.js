@@ -14,7 +14,6 @@ router.post('/', (req, res) => {
     image_url: req.body.imageUrl,
     tags: 'placeholder',
   }
-  // auth0_id: req.body.auth0Id,
 
   const captionData = {
     caption_text: req.body.captionText,
@@ -23,7 +22,7 @@ router.post('/', (req, res) => {
   db.addImageUrl(imageData)
     .then((id) => {
       tempImageId = id
-      // console.log(tempImageId)
+
       return db.addImageCaption({ ...captionData, image_id: tempImageId })
     })
     .then((ids) => {

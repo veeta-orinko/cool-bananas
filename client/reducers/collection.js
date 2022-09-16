@@ -1,6 +1,6 @@
 import { SHOW_COLLECTION } from '../actions/collection'
 
-const initialState = {}
+const initialState = []
 
 const collectionReducer = (state = initialState, action) => {
   const { type, payload } = action

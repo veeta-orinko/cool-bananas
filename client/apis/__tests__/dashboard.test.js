@@ -9,13 +9,6 @@ const dashboardContentMockData = [
     imageUrl: '/mockImageUrl',
     captionText: 'mockCaptionText',
   },
-  {
-    imageId: 3,
-    auth0ImageId: '3',
-    captionId: 3,
-    imageUrl: '/mockImageUrl3',
-    captionText: 'mockCaptionText3',
-  },
 ]
 
 describe('GET /api/v1/dashboard', () => {

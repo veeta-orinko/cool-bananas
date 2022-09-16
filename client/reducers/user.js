@@ -1,6 +1,7 @@
 import { SET_USER, CLEAR_USER } from '../actions/user'
 
 const initialState = {
+  name: '',
   auth0Id: '',
   email: '',
   token: '',
@@ -11,7 +12,7 @@ export default function user(state = initialState, action) {
 
   switch (type) {
     case SET_USER:
-      return payload
+      return { ...state, ...payload }
     case CLEAR_USER:
       return initialState
     default:

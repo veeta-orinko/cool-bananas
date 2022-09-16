@@ -43,9 +43,6 @@ export default function Create() {
   }, [])
 
   function nextImg() {
-    if (index === 25) {
-      setIndex(0)
-    }
     setIndex(index + 1)
   }
 

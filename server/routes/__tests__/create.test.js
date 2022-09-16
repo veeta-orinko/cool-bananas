@@ -14,6 +14,8 @@ afterEach(() => {
 const postCaptionedImagestMockData = {
   captionText: 'mockCaptionText1',
   imageUrl: 'mockImageUrl1',
+  authId: 'mockId',
+  tags: 'mocktags',
 }
 
 describe('POST /api/v1/create/', () => {
@@ -32,10 +34,12 @@ describe('POST /api/v1/create/', () => {
         expect(addImageCaption).toHaveBeenCalledWith({
           image_id: [5],
           caption_text: 'mockCaptionText1',
+          auth0_id: 'mockId',
         })
         expect(addImageUrl).toHaveBeenCalledWith({
           image_url: 'mockImageUrl1',
-          tags: 'placeholder',
+          tags: 'mocktags',
+          auth0_id: 'mockId',
         })
       })
   })

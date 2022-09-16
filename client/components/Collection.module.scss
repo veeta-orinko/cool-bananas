@@ -1,0 +1,39 @@
+container {
+  position: relative;
+  text-align: center;
+  color: rgb(255, 11, 202);
+  font-size: 3rem;
+  @media only screen and (max-width: 1199px) {
+    font-size: 2.5rem;
+  }
+  @media only screen and (max-width: 767px) {
+    font-size: 1.5rem;
+  }
+}
+
+.image {
+  max-width: 70vw;
+  max-height: 50vh;
+  position: center;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 24px;
+  text-align: center;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.background {
+  background-color:#FF5B00;
+}
+.title {
+  color:beige;
+  font-size: 4rem;
+  text-align: center;
+}
+

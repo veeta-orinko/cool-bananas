@@ -21,6 +21,7 @@ export default function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/collection' element={<Collection />} />
         <Route path='/tagged' element={<Tagged />} />
+        <Route path='/tagged/:tag' element={<Tagged />} />
         <Route path='/create' element={<Create />} />
         <Route path='/create/upload' element={<Upload />} />
         <Route path='/register' element={<Register />} />

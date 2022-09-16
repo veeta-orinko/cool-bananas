@@ -11,7 +11,6 @@ export function getExternalImages() {
 }
 
 export function addImgCaptionUrl(data) {
-  console.log('post caption and url: ', data)
   return request
     .post(apiUrl)
     .send(data)

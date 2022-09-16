@@ -11,6 +11,7 @@ export default function Create() {
   if (images) {
     display = images[index].images.original.url
   }
+
   function onSubmit(e) {
     e.preventDefault()
 
@@ -19,8 +20,8 @@ export default function Create() {
       captionText: form.name,
       tags: 'placeholder',
     }
+
     addImgCaptionUrl(sendObject)
-    console.log(sendObject)
   }
 
   // function handleClick(evt) {
@@ -41,7 +42,6 @@ export default function Create() {
     getExternalImages()
       .then((images) => {
         setImages(images)
-        console.log('images:', images)
       })
       .catch((err) => {
         console.error(err.message)
@@ -55,6 +55,10 @@ export default function Create() {
   return (
     <>
       <h1>CREATE PAGE :D</h1>
+      <button onClick={nextImg} value='Next'>
+        New Image
+      </button>
+      <br></br>
       {images && (
         <>
           {' '}
@@ -69,13 +73,11 @@ export default function Create() {
               value={name}
               onChange={handleChange}
             ></input>
-            <button onClick={onSubmit}>Add Caption</button>
+            <button onClick={onSubmit}>Save Caption</button>
           </form>
         </>
       )}
-      <button onClick={nextImg} value='Next'>
-        New Image
-      </button>
+
       <Link to='/create/upload'>Upload</Link>
     </>
   )

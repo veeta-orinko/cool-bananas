@@ -28,14 +28,10 @@ router.get('/gif', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  console.log(req.body, 'from routes')
-
   const imageData = {
     image_url: req.body.imageUrl,
     tags: 'placeholder',
   }
-  // auth0_id: req.body.auth0Id,
-
   const captionData = {
     caption_text: req.body.captionText,
   }

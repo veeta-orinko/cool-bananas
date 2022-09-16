@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getExternalImages, addImgCaptionUrl } from '../apis/create'
 
 export default function Create() {
+  const authNum = useSelector((state) => state.user.auth0Id)
   const [images, setImages] = useState(null)
   const [form, setForm] = useState({ name: '' })
   const [index, setIndex] = useState(0)
   const { name } = form
+  const { tags } = form
   let display = null
   if (images) {
     display = images[index].images.original.url
@@ -14,24 +17,15 @@ export default function Create() {
 
   function onSubmit(e) {
     e.preventDefault()
-
     const sendObject = {
       imageUrl: display,
       captionText: form.name,
-      tags: 'placeholder',
+      tags: form.tags,
+      authId: authNum,
     }
-
+    console.log(sendObject)
     addImgCaptionUrl(sendObject)
   }
-
-  // function handleClick(evt) {
-  //   evt.preventDefault()
-  //   // const action = { type: 'ADD_WOMBAT', payload: form.name }
-  //   //dispatch/useDispatch
-  //   //name is value of the form
-  //   // dispatch(updateWombat(name, wombat))
-  //   setForm({ name: '' })
-  // }
 
   function handleChange(evt) {
     evt.preventDefault()
@@ -49,6 +43,9 @@ export default function Create() {
   }, [])
 
   function nextImg() {
+    if (index === 25) {
+      setIndex(0)
+    }
     setIndex(index + 1)
   }
 
@@ -64,13 +61,21 @@ export default function Create() {
           {' '}
           <img src={display} alt='lorem' />
           <form>
-            <label htmlFor='createid'>{name}</label>
+            <label htmlFor='createTd'>{name}</label>
             <br></br>
             <input
               type='text'
-              id='createid'
+              id='createTd'
               name='name'
               value={name}
+              onChange={handleChange}
+            ></input>
+            <label htmlFor='createTd'>Tags:</label>
+            <input
+              type='text'
+              id='createTagTd'
+              name='tags'
+              value={tags}
               onChange={handleChange}
             ></input>
             <button onClick={onSubmit}>Save Caption</button>

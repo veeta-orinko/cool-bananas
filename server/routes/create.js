@@ -30,10 +30,12 @@ router.get('/gif', (req, res) => {
 router.post('/', (req, res) => {
   const imageData = {
     image_url: req.body.imageUrl,
-    tags: 'placeholder',
+    tags: req.body.tags,
+    auth0_id: req.body.authId,
   }
   const captionData = {
     caption_text: req.body.captionText,
+    auth0_id: req.body.authId,
   }
   let tempImageId = null
   db.addImageUrl(imageData)

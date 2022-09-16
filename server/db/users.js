@@ -8,7 +8,10 @@ module.exports = {
 }
 
 function getUser(id, db = connection) {
-  return db('users').select('name', 'email').where('auth0_id', id).first()
+  return db('users')
+    .select('name', 'email', 'auth0_id as auth0Id')
+    .where('auth0_id', id)
+    .first()
 }
 
 function getUsers(db = connection) {

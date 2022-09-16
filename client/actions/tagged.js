@@ -23,11 +23,9 @@ export function fetchImages() {
 }
 
 export function fetchImagesByTag(tag) {
-  console.log('action fbt:', tag)
   return (dispatch) => {
     return getImagesByTag(tag)
       .then((images) => {
-        console.log('back from api:', images)
         dispatch(setImages(images))
         return null
       })

@@ -13,7 +13,6 @@ export default function Tagged() {
   const navigate = useNavigate()
   const [tag, setTag] = useState({ tag: '' })
   const { tag: tagParam } = useParams()
-  console.log('tP', tagParam)
 
   useEffect(() => {
     tagParam === undefined
@@ -24,7 +23,6 @@ export default function Tagged() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log('tagged 1', tag)
     dispatch(fetchImagesByTag(tag.tag))
     setTag({ tag: '' })
     navigate(`/tagged/${tag.tag}`)

@@ -35,9 +35,6 @@ describe('tagged reducer', () => {
     const expectedState = arrImageData
 
     const outputState = tagged(initialState, action)
-    console.log('intitial: ', initialState)
-    console.log('expected: ', expectedState)
-    console.log('output: ', outputState)
 
     expect(outputState).toEqual(expectedState)
     expect(outputState).not.toBe(initialState)

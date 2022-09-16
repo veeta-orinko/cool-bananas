@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import styles from './Register.module.scss'
 
 import { addUser } from '../apis/users'
 import { setUser } from '../actions/user'
@@ -44,33 +45,47 @@ function Register() {
   }
 
   return (
-    <>
-      {errorMsg && (
-        <div>
-          Error: {errorMsg}
-          <button onClick={hideError}>Okay</button>
-        </div>
-      )}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='name'>Username: </label>
-        <input
-          type='text'
-          id='name'
-          name='name'
-          value={form.name}
-          onChange={handleChange}
-        />
-        <label htmlFor='email'>Email: </label>
-        <input
-          type='text'
-          id='email'
-          name='email'
-          value={form.email}
-          onChange={handleChange}
-        />
-        <button disabled={!(form.name && form.email)}>Save Profile</button>
-      </form>
-    </>
+    <div className={styles.entireContentArea}>
+      <div className={styles.contentArea}>
+        <h1 className={styles.accountTitle}>Make an Account</h1>
+        {errorMsg && (
+          <div>
+            Error: {errorMsg}
+            <button onClick={hideError}>Okay</button>
+          </div>
+        )}
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.input}>
+            <label htmlFor='name'>Username: </label>
+            <input
+              type='text'
+              id='name'
+              name='name'
+              value={form.name}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={styles.input}>
+            <label htmlFor='email'>Email: </label>
+            <input
+              type='text'
+              id='email'
+              name='email'
+              value={form.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <button
+              className={styles.registerBtn}
+              disabled={!(form.name && form.email)}
+            >
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   )
 }
 

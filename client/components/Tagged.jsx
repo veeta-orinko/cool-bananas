@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { selectImages } from '../reducers/tagged'
 import { fetchImages, fetchImagesByTag } from '../actions/tagged'
@@ -12,16 +12,22 @@ export default function Tagged() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [tag, setTag] = useState({ tag: '' })
+  const { tag: tagParam } = useParams()
+  console.log('tP', tagParam)
 
-  useEffect(() => dispatch(fetchImages()), [])
+  useEffect(() => {
+    tagParam === undefined
+      ? dispatch(fetchImages())
+      : dispatch(fetchImagesByTag(tagParam))
+  }, [])
+  // useEffect(() => images === undefined && navigate('/tagged'), [loaded])
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log(tag)
-    console.log(e.target.value)
+    console.log('tagged 1', tag)
     dispatch(fetchImagesByTag(tag.tag))
+    setTag({ tag: '' })
     navigate(`/tagged/${tag.tag}`)
-    setTag('')
   }
 
   function handleChange(e) {
@@ -44,13 +50,17 @@ export default function Tagged() {
         <input type='submit' />
       </form>
       <div className={styles.displayContainer}>
-        {images.map((image) => (
-          <Display
-            key={`${image.imageId}${image.captionId}`}
-            imageUrl={image.imageUrl}
-            captionText={image.captionText}
-          />
-        ))}
+        {images.length !== 0 ? (
+          images.map((image) => (
+            <Display
+              key={`${image.imageId}${image.captionId}`}
+              imageUrl={image.imageUrl}
+              captionText={image.captionText}
+            />
+          ))
+        ) : (
+          <p>Sorry, there are no images with this tag. Try agin.</p>
+        )}
       </div>
     </>
   )

@@ -39,7 +39,6 @@ router.post('/', (req, res) => {
   db.addImageUrl(imageData)
     .then((id) => {
       tempImageId = id
-      console.log(tempImageId)
       return db.addImageCaption({ ...captionData, image_id: tempImageId })
     })
     .then((ids) => {

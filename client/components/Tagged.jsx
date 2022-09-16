@@ -34,17 +34,23 @@ export default function Tagged() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='tag'>Search for an image by keyword:</label>
-        <input
-          name='tag'
-          id='tag'
-          type='text'
-          value={tag.tag}
-          onChange={handleChange}
-        />
-        <input type='submit' />
-      </form>
+      <h1 className='title is-primary has-text-centered '>
+        Find Your Favourite Image by Tag
+      </h1>
+      <div className='container box'>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor='tag'>Search for an image by keyword:</label>
+          <input
+            name='tag'
+            id='tag'
+            type='text'
+            value={tag.tag}
+            onChange={handleChange}
+          />
+          <input type='submit' />
+        </form>
+      </div>
+
       <div className={styles.displayContainer}>
         {images.length !== 0 ? (
           images.map((image) => (
